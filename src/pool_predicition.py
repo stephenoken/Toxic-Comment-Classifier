@@ -9,7 +9,7 @@ def predict(clfs, x):
 
 def pool_predict(classifiers, batch_size, xs):
     batches = np.array_split(xs, round(xs.shape[1] * batch_size))
-    pool = Pool(2)
+    pool = Pool(2, maxtasksperchild=1000)
     predicted_batches = pool.map_async(lambda batch: [predict(classifiers, x) for x in batch], batches)
     return reduce(lambda res, cur: res + cur, predicted_batches.get(), [])
 
