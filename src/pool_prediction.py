@@ -22,10 +22,11 @@ if __name__ == '__main__':
         classifiers = pickle.load(f1)
         X_test = pickle.load(f2)
         print("Loaded files")
+        print(X_test)
         with Pool() as p:
-            batch_size = .2
-            batches = create_batch_generator(X_test[:5])
+#             batch_size = .2
+#             batches = create_batch_generator(X_test[:5])
             lazy_list = p.imap(predict_all, X_test)
             #
             res = np.array([x for x in lazy_list])
-            pickle.dump(res, open('./pickles/result.p', 'wb'))
+            pickle.dump(res, open('./pickles/y-pred-results.p', 'wb'))
